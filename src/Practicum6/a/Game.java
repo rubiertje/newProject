@@ -1,9 +1,7 @@
 package Practicum6.a;
 
-import org.junit.platform.commons.util.StringUtils;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Game {
@@ -27,28 +25,26 @@ public class Game {
 
     public double huidigeWaarde(){
         int jaarDaling = LocalDate.now().getYear() - releaseJaar;
-        double procentDaling = 30.0;
         double prijs = nieuwprijs;
         for (int i=0; i<jaarDaling; i++){
-            prijs *= ((100 - procentDaling) / 100);
+            prijs *= 0.7;
         }
         return prijs;
     }
 
     public boolean equals(Object andereObject){
         boolean s = false;
-        String strreleasejaar = String.valueOf(getReleaseJaar());
+        String k = andereObject.toString();
 //        System.out.println("START");
-        if (andereObject == getNaam()){
-            return true;
-        }else if (andereObject == strreleasejaar){
-            return true;
-        }
-        if (andereObject.equals(getNaam()) || andereObject.equals(getReleaseJaar())){
+//        System.out.println(andereObject);
+//        System.out.println(getNaam());
+//        System.out.println(strreleasejaar);
+        if (andereObject == getNaam() || andereObject.equals(releaseJaar)){
             s = true;
         }
-        String geheleString = andereObject.toString();
         try{
+            String geheleString = andereObject.toString();
+            String strreleasejaar = String.valueOf(releaseJaar);
             int indexcomma = geheleString.indexOf(",");
             int indexpuntcomma = geheleString.indexOf(";");
             String naam = geheleString.substring(0, indexcomma);
@@ -60,13 +56,9 @@ public class Game {
 //            System.out.println("andere object: "+geheleString);
 //            System.out.println("naam andereobject: "+ naam);
 //            System.out.println("releasejaar andereobject: "+ releasjaar);
-            if (Objects.equals(getNaam(), naam) && Objects.equals(strreleasejaar, releasjaar)){
-//                System.out.println("return true");
-                return true;
-            }else{
-//                System.out.println("return false");
-                return false;
-            }
+            //                System.out.println("return true");
+            //                System.out.println("return false");
+            return Objects.equals(getNaam(), naam) && Objects.equals(strreleasejaar, releasjaar);
         }catch (Exception ignored){}
         return s;
     }
